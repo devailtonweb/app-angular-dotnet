@@ -1,0 +1,134 @@
+<div class="container main-container">
+  <h4>Demo Cadastro</h4>
+  <hr />
+  {{ cadastroForm.value | json }}
+  {{ cadastroForm.valid }}
+  {{ cadastroForm.touched }}
+  {{ cadastroForm.dirty }}
+  {{ formResult }}
+  <form [formGroup]="cadastroForm" (ngSubmit)="save()" novalidate>
+    <div class="form-horizontal">
+      <div class="form-group">
+        <label for="nome" class="col-md-2 control-label">Nome Completo </label>
+        <div class="col-md-12">
+          <input
+            type="text"
+            class="form-control"
+            id="nome"
+            type="text"
+            placeholder="Nome (Obrigatório)"
+            formControlName="nome"
+            [ngClass]="{
+              'is-invalid':
+                cadastroForm.get('nome')?.errors &&
+                (cadastroForm.get('nome').touched ||
+                  cadastroForm.get('nome').dirty)
+            }"
+          />
+          <span
+            class="text-danger"
+            *ngIf="
+              cadastroForm.get('nome')?.errors &&
+              (cadastroForm.get('nome').touched ||
+                cadastroForm.get('nome').dirty)
+            "
+          >
+            <p>Preencha o campo nome</p>
+          </span>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="cpf" class="col-md-2 control-label">CPF </label>
+        <div class="col-md-6">
+          <input
+            type="text"
+            class="form-control"
+            id="cpf"
+            type="text"
+            placeholder="CPF (Obrigatório)"
+            formControlName="cpf"
+          />
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="email" class="col-md-2 control-label">E-mail </label>
+        <div class="col-md-6">
+          <input
+            type="text"
+            class="form-control"
+            id="email"
+            placeholder="E-mail (Obrigatório)"
+            formControlName="email"
+            [ngClass]="{
+              'is-invalid':
+                (cadastroForm.get('email')?.errors?.required ||
+                  cadastroForm.get('email')?.errors?.email) &&
+                (cadastroForm.get('email').touched ||
+                  cadastroForm.get('email').dirty)
+            }"
+          />
+          <span
+            class="text-danger"
+            *ngIf="
+              cadastroForm.get('email')?.errors?.required &&
+              (cadastroForm.get('email').touched ||
+                cadastroForm.get('email').dirty)
+            "
+          >
+            <p>Preencha o campo nome</p>
+          </span>
+          <span
+            class="text-danger"
+            *ngIf="
+              cadastroForm.get('email')?.errors?.email &&
+              (cadastroForm.get('email').touched ||
+                cadastroForm.get('email').dirty)
+            "
+          >
+            <p>Email com formato inválido</p>
+          </span>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="email" class="col-md-2 control-label">Senha </label>
+        <div class="col-md-6">
+          <input
+            type="password"
+            class="form-control"
+            id="senha"
+            placeholder="Senha (Obrigatório)"
+            formControlName="senha"
+          />
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="email" class="col-md-2 control-label"
+          >Confirme a Senha
+        </label>
+        <div class="col-md-6">
+          <input
+            type="password"
+            class="form-control"
+            id="confirme-senha"
+            placeholder="Confirme a Senha (Obrigatório)"
+            formControlName="senhaConfirmacao"
+          />
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-md-4 col-md-offset-2">
+          <span>
+            <button
+              class="btn btn-success"
+              id="registrar"
+              type="submit"
+              [disabled]="!cadastroForm.valid"
+            >
+              Registrar
+            </button>
+          </span>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
